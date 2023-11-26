@@ -45,6 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(40),
+                      ),
                       color: Theme.of(context).cardColor,
                     ),
                     child: Column(
