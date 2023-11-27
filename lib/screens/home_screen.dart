@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int totalSeconds = 1500;
+  bool isRunning = false;
   late Timer timer; // late 키워드 사용하기에 아주 좋은 예시, 선언만하고 초기화는 사용하기 전까지는 꼭 한다는 약속
 
   void onTick(Timer timer) {
@@ -25,6 +26,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       onTick,
     );
+    setState(() {
+      isRunning = true;
+    });
+  }
+
+  void onPausePressed() {
+    timer.cancel();
+    setState(() {
+      isRunning = false;
+    });
   }
 
   @override
@@ -50,8 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 3,
             child: Center(
               child: IconButton(
-                onPressed: onStartPressed,
-                icon: const Icon(Icons.play_circle_outline),
+                onPressed: isRunning ? onPausePressed : onStartPressed,
+                icon: Icon(isRunning
+                    ? Icons.pause_circle_outline
+                    : Icons.play_circle_outline),
                 iconSize: 120,
                 color: Theme.of(context).cardColor,
               ),
